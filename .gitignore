@@ -15,7 +15,7 @@ venv/
 nltk_data/
 
 # Data folder (raw large CSVs)
-data/raw/
+data/
 *.csv
 *.zip
 
