@@ -12,7 +12,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 DATA_DIR = "data/processed_dataset/train"   # Point directly to train folder
 IMG_SIZE = 28
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 60
 MODEL_PATH = "models/nepali_cnn.h5"
 
 # -------------------
@@ -133,3 +133,27 @@ labels = {v: k for k, v in train_data.class_indices.items()}
 np.save("models/class_labels.npy", labels)
 
 print("✅ Model and labels saved!")
+
+import matplotlib.pyplot as plt
+
+# Plot training & validation loss
+plt.figure(figsize=(8,5))
+plt.plot(history.history['loss'], marker='o', label='Training Loss')
+plt.plot(history.history['val_loss'], marker='o', label='Validation Loss')
+plt.title('Model Loss per Epoch')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Plot training & validation accuracy
+plt.figure(figsize=(8,5))
+plt.plot(history.history['accuracy'], marker='o', label='Training Accuracy')
+plt.plot(history.history['val_accuracy'], marker='o', label='Validation Accuracy')
+plt.title('Model Accuracy per Epoch')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.grid(True)
+plt.show()

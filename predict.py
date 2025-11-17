@@ -38,6 +38,7 @@ def predict_character(img_path):
 # Test
 # -------------------
 if __name__ == "__main__":
-    test_img = "images/char.png"  # your image path
+    #test_img = "images/char.png"  # your image path
+    test_img = "/Users/susmitapaudel/projects/nepali-writing-identification/images/s5.png"  # your image path
     result = predict_character(test_img)
     print(f"Predicted character: {result}")
