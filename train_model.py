@@ -19,19 +19,49 @@ MODEL_PATH = "models/nepali_cnn.h5"
 # Mapping nested folders to actual letters
 # CHANGE THIS according to your dataset
 nested_mapping = {
-    'consonants': {'1': 'ka', '2': 'kha', '3': 'ga'},
-    'vowels': {'1': 'a', '2': 'aa'}
+    "vowels": {
+        "1": "a",      # अ
+        "2": "aa",     # आ
+        "3": "i",      # इ
+        "4": "ii",     # ई
+        "5": "u",      # उ
+        "6": "uu",     # ऊ
+        "7": "e",      # ए
+        "8": "ai",     # ऐ
+        "9": "o",     # ओ
+        "10": "au",    # औ
+        "11": "am",    # अं
+        "12": "ah",    # अः
+    },
+    "consonants": {
+        "1": "ka", "2": "kha", "3": "ga", "4": "gha", "5": "nga",
+        "6": "cha", "7": "chha", "8": "ja", "9": "jha", "10": "nya",
+        "11": "tta", "12": "ttha", "13": "dda", "14": "ddha", "15": "nna",
+        "16": "ta", "17": "tha", "18": "da", "19": "dha", "20": "na",
+        "21": "pa", "22": "pha", "23": "ba", "24": "bha", "25": "ma",
+        "26": "ya", "27": "ra", "28": "la", "29": "wa",
+        "30": "sha", "31": "ssha", "32": "sa", "33": "ha",
+        "34": "ksha", "35": "tra", "36": "gya"
+    },
+    "numerals": {
+        "0": "0", "1": "1", "2": "2", "3": "3", "4": "4",
+        "5": "5", "6": "6", "7": "7", "8": "8", "9": "9"
+    }
 }
+
 
 # -------------------
 # Create a flat dataset structure temporarily for Keras
 flat_dir = "data/flat_train"
 os.makedirs(flat_dir, exist_ok=True)
 
-for top_folder, subfolders in nested_mapping.items():
+for top_folder, subfolders in nested_mapping.items(): #vowels, consonants chai top_folder bhayo, 01,02 haru chai subfolders bho
     for subfolder, letter in subfolders.items():
         src = os.path.join(DATA_DIR, top_folder, subfolder)
         dst = os.path.join(flat_dir, letter)
+        if not os.path.isdir(src):
+            print(f"[SKIP] Directory does not exist: {src}")
+            continue
         os.makedirs(dst, exist_ok=True)
         for f in os.listdir(src):
             if f.lower().endswith(('.png', '.jpg', '.jpeg')):
